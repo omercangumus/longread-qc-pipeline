@@ -56,5 +56,5 @@ Based on the quality metrics:
 I am happy to proceed with alignment, or to discuss the results in more detail at your convenience. Please do not hesitate to reach out.
 
 Best regards,  
-[Your Name]  
+Omer Can Gumus  
 Bioinformatics Intern
