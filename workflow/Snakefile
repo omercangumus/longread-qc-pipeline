@@ -1,0 +1,76 @@
+configfile: "workflow/config/config.yaml"
+
+# Final output target
+rule all:
+    input:
+        config["qc_dir"] + "/NanoPlot-report.html",
+        config["stats_csv"],
+        config["plots_dir"] + "/gc_content_distribution.png",
+        config["plots_dir"] + "/read_length_distribution.png",
+        config["plots_dir"] + "/mean_quality_distribution.png",
+        config["plots_dir"] + "/combined_dashboard.png",
+        config["summary_txt"]
+
+# Rule 1: Run NanoPlot for QC (long-read specific tool)
+rule nanoplot_qc:
+    input:
+        fastq = config["input_fastq"]
+    output:
+        report = config["qc_dir"] + "/NanoPlot-report.html"
+    params:
+        outdir = config["qc_dir"],
+        threads = config["nanoplot_threads"]
+    conda:
+        "longread-qc"
+    shell:
+        """
+        NanoPlot \
+            --fastq {input.fastq} \
+            --outdir {params.outdir} \
+            --threads {params.threads} \
+            --plots dot \
+            --N50 \
+            --verbose \
+            --title "Long-Read QC Report"
+        """
+
+# Rule 2: Calculate per-read statistics with custom Python script
+rule calculate_read_stats:
+    input:
+        fastq = config["input_fastq"]
+    output:
+        csv = config["stats_csv"]
+    params:
+        outdir = config["stats_dir"]
+    conda:
+        "longread-qc"
+    shell:
+        """
+        mkdir -p {params.outdir}
+        python scripts/read_stats.py \
+            --input {input.fastq} \
+            --output {output.csv}
+        """
+
+# Rule 3: Generate visualizations and summary statistics
+rule visualize_and_summarize:
+    input:
+        csv = config["stats_csv"]
+    output:
+        gc_plot    = config["plots_dir"] + "/gc_content_distribution.png",
+        len_plot   = config["plots_dir"] + "/read_length_distribution.png",
+        qual_plot  = config["plots_dir"] + "/mean_quality_distribution.png",
+        dashboard  = config["plots_dir"] + "/combined_dashboard.png",
+        summary    = config["summary_txt"]
+    params:
+        outdir = config["plots_dir"]
+    conda:
+        "longread-qc"
+    shell:
+        """
+        mkdir -p {params.outdir}
+        python scripts/visualize.py \
+            --input {input.csv} \
+            --outdir {params.outdir} \
+            --summary {output.summary}
+        """

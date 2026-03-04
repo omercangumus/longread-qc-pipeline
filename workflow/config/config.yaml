@@ -1,0 +1,16 @@
+# Pipeline Configuration
+sample_name: "sample"
+input_fastq: "data/sample.fastq.gz"
+
+# Output directories
+results_dir: "results"
+qc_dir: "results/qc"
+stats_dir: "results/stats"
+plots_dir: "results/plots"
+
+# NanoPlot settings
+nanoplot_threads: 4
+
+# Summary statistics output
+stats_csv: "results/stats/read_stats.csv"
+summary_txt: "results/stats/summary_statistics.txt"
