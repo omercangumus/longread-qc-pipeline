@@ -20,8 +20,6 @@ rule nanoplot_qc:
     params:
         outdir = config["qc_dir"],
         threads = config["nanoplot_threads"]
-    conda:
-        "longread-qc"
     shell:
         """
         NanoPlot \
@@ -42,8 +40,6 @@ rule calculate_read_stats:
         csv = config["stats_csv"]
     params:
         outdir = config["stats_dir"]
-    conda:
-        "longread-qc"
     shell:
         """
         mkdir -p {params.outdir}
@@ -64,8 +60,6 @@ rule visualize_and_summarize:
         summary    = config["summary_txt"]
     params:
         outdir = config["plots_dir"]
-    conda:
-        "longread-qc"
     shell:
         """
         mkdir -p {params.outdir}
