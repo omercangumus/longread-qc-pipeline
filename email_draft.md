@@ -3,7 +3,7 @@
 ---
 
 **To:** Prof. Kılıç  
-**From:** [Your Name]  
+**From:** Ömer Can Gümüş  
 **Subject:** Long-Read Sequencing Data — Quality Control Report
 
 ---
@@ -56,5 +56,5 @@ Based on the quality metrics:
 I am happy to proceed with alignment, or to discuss the results in more detail at your convenience. Please do not hesitate to reach out.
 
 Best regards,  
-Omer Can Gumus  
+Ömer Can Gümüş  
 Bioinformatics Intern
