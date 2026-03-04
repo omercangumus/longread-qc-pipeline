@@ -199,4 +199,4 @@ See [`email_draft.md`](email_draft.md) for a non-technical summary written for P
 ## 👤 Author
 
 Created as part of a Bioinformatics Internship Case Study.  
-GitHub: [your-github-username](https://github.com/your-github-username)
+GitHub: [omercangumus](https://github.com/omercangumus/longread-qc-pipeline)
